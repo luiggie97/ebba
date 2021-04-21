@@ -13,7 +13,7 @@
                         <div id="list" v-if="this.type === 'list'">
                             <div class="row">
                                 <div class="col-lg-12 text-center">
-                                    <img :src="this.vehicle.photo" class="img-fluid align-content-center" style="max-width:100px;"/>
+                                    <img :src="this.photo" class="img-fluid align-content-center" style="max-width:100px;"/>
                                 </div>
                                 <div class="col-lg-12">
                                     <h5>Veículo</h5>
@@ -109,7 +109,7 @@
                                                v-model="reserve.end_date" required>
                                     </div>
                                     <div class="d-flex">
-                                        <button class="btn btn-success" v-on:click="BookingReserve()">Editar Reserva</button>
+                                        <button class="btn btn-success mr-3" v-on:click="BookingReserve()">Editar Reserva</button>
                                         <button class="btn btn-danger" v-on:click="BookingList()">Cancelar</button>
                                     </div>
                                 </div>
@@ -130,6 +130,7 @@
             return {
                 vehicle: '',
                 type: 'list',
+                photo:'',
                 reserve: {
                     start_date: '',
                     end_date: '',
@@ -209,7 +210,10 @@
         mounted() {
             this.user = this.p_user;
             this.vehicle = this.p_vehicle;
-            console.log(this.vehicle);
+            var url_atual = window.location.href;
+            var result =url_atual.split("/");
+            this.photo = result[0]+'//'+result[2]+'/images/'+this.vehicle.photo;
+            console.log(this.photo);
             this.reserve.vehicle_id = this.vehicle.id;
             this.reserve.user_id = this.p_user.id;
         },
